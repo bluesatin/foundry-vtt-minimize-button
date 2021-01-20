@@ -1,0 +1,17 @@
+{
+    "name": "minimize-button",
+    "title": "Minimize Button",
+    "description": "A small module that adds minimize buttons to the titlebars of windows.",
+    "author": "Bluesatin",
+    "version": "0.1.0",
+    "minimumCoreVersion": "0.7.0",
+    "compatibleCoreVersion": "0.7.9",
+    "system": "",
+    "scripts": [],
+    "esmodules": [
+        "/scripts/minimize-button.js",
+        "/scripts/settings.js"
+    ],
+    "styles": [],
+    "packs": []
+}
