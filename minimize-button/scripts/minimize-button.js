@@ -1,3 +1,7 @@
+// ┌─────────────────────────┐
+// │  #Init - Initial Setup  │
+// ╘═════════════════════════╛
+const module = "minimize-button";
 // ┌──────────────────────────────────┐
 // │  #Hooks - Global Event Handlers  │
 // ╘══════════════════════════════════╛
@@ -6,7 +10,7 @@ Hooks.on("init", () => {
     // Make changes to the existing Application class
     patchApplicationClass();
     // Debugging
-    console.log("minimize-button | Module Loaded.");
+    console.log(`${module} | Module Loaded.`);
 });
 // ┌────────────────┐
 // │   #Functions   │
@@ -35,18 +39,20 @@ function patchApplicationClass() {
                 // Initialise
                 const element = ev.target.closest("a");
                 const window = ev.target.closest(".app");
+                const showButtonLabel = game.settings.get(module, "showButtonLabel");
                 // Get minimizing status
                 const minimizing = !this._minimized;
                 // Add close class to stop it being hidden
                 element.classList.add("close");
-                window.style.minWidth
                 // Toggle minimize status
-                if (minimizing) { 
-                    element.innerHTML = `<i class="far fa-window-restore"></i>Restore`;
+                if (minimizing) {
+                    let buttonLabel = showButtonLabel ? "Restore" : "";
+                    element.innerHTML = `<i class="far fa-window-restore"></i>${buttonLabel}`;
                     await this._onToggleMinimize(ev);
                     // await this.minimize(ev);
                 } else { 
-                    element.innerHTML = `<i class="far fa-window-minimize"></i>Minimize`;
+                    let buttonLabel = showButtonLabel ? "Minimize" : "";
+                    element.innerHTML = `<i class="far fa-window-minimize"></i>${buttonLabel}`;
                     await this._onToggleMinimize(ev);
                     // await this.maximize(ev);
                 }
@@ -78,11 +84,8 @@ function patchApplicationClass() {
         if (!this.popOut || [true, null].includes(this._minimized)) { return; }
         // Initialise
         const minWindowWidth = options.minWindowWidth ?? 
-                               game.settings.get("minimize-button", "minWindowWidth") ?? 
+                               game.settings.get(module, "minWindowWidth") ?? 
                                MIN_WINDOW_WIDTH;
-        const minWindowHeight = options.minWindowHeight ?? 
-                                game.settings.get("minimize-button", "minWindowHeight") ?? 
-                                MIN_WINDOW_HEIGHT;
         // Change status
         this._minimized = null;
         // Get content

@@ -1,0 +1,6 @@
+/* Make window-titles overflow into ellipses... */
+.app .window-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
